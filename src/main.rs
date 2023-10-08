@@ -1,15 +1,12 @@
-use raylib::prelude::*;
+use macroquad::prelude::*;
 
-fn main() {
-    let (mut rl, thread) = raylib::init()
-        .size(640, 480)
-        .title("Hello, World")
-        .build();
+#[macroquad::main("Texture")]
+async fn main() {
+    let texture: Texture2D = load_texture("sprites/grass.png").await.unwrap();
 
-    while !rl.window_should_close() {
-        let mut d = rl.begin_drawing(&thread);
-
-        d.clear_background(Color::WHITE);
-        d.draw_text("Hello, world!", 12, 12, 20, Color::BLACK);
+    loop {
+        clear_background(LIGHTGRAY);
+        draw_texture(&texture, screen_width() / 2., screen_height() / 2., WHITE);
+        next_frame().await
     }
 }

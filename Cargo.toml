@@ -6,4 +6,5 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-raylib = "3.7.0"
+macroquad = "0.4.4"
+miniquad = "0.3.16"
