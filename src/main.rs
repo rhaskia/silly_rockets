@@ -1,4 +1,5 @@
 use bevy::prelude::*;
+use bevy_rapier2d::prelude::*;
 
 #[derive(Component)]
 struct PlayerData {
@@ -9,18 +10,31 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins.set(ImagePlugin::default_nearest()))
         .add_systems(Startup, setup)
-        .add_systems(Update, player_movement)
+        .add_systems(Update, print_ball_altitude)
         .run();
 }
 
 fn setup(mut commands: Commands, asset_server: Res<AssetServer>) {
     commands.spawn(Camera2dBundle::default());
-    commands.spawn((SpriteBundle {
-        texture: asset_server.load("sprites/player.png"),
-        ..default()
-    },
-    PlayerData { name: String::from("william") }
-    ));
+
+    commands.spawn(RigidBody::Dynamic)
+        .insert(SpriteBundle {
+            texture: asset_server.load("sprites/player.png"),
+            ..default()
+        })
+        .insert(Velocity {
+            linvel: Vec2::new(1.0, 2.0),
+            angvel: 0.2
+        })
+        .insert(GravityScale(0.5))
+        .insert(Sleeping::disabled())
+        .insert(Ccd::enabled());
+}
+
+fn print_ball_altitude(positions: Query<&Transform, With<RigidBody>>) {
+    for transform in positions.iter() {
+        println!("Ball altitude: {}", transform.translation.y);
+    }
 }
 
 fn player_movement(
