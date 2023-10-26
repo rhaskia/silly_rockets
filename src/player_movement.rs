@@ -56,7 +56,7 @@ pub fn movement(mut player_q: Query<(&mut ExternalImpulse, &mut Velocity, &mut D
 pub fn jump(mut force: &mut Mut<ExternalImpulse>, player_data: &mut Mut<Data>) {
     if !player_data.is_grounded { return; }
 
-    force.impulse = Vec2::new(0.0, 600.0);
+    force.impulse = Vec2::new(0.0, 30.0);
     force.torque_impulse = 0.0;
     player_data.is_grounded = false;
 }

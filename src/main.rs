@@ -35,9 +35,9 @@ fn setup_physics(mut commands: Commands, asset_server: Res<AssetServer>, mut ass
         .insert(Restitution::coefficient(0.1))
         .insert(LockedAxes::ROTATION_LOCKED_Z)
         .insert(ActiveEvents::COLLISION_EVENTS)
-        .insert(GravityScale(10.0))
-        .insert(Damping { linear_damping: 5.0, angular_damping: 1.0 })
-        
+        .insert(GravityScale(1.0))
+        .insert(Damping { linear_damping: 0.5, angular_damping: 1.0 })
+
         .insert(ExternalImpulse { impulse: Default::default(), torque_impulse: 0.0 })
         .insert(Velocity { linvel: Default::default(), angvel: 0.0 })
         
